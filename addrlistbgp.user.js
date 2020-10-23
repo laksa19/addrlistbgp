@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Address List BGP
-// @namespace    http://tampermonkey.net/
+// @namespace    https://laksa19.github.io/addrlistbgp
 // @version      0.1
 // @description  Get Adress List from BGP
 // @author       Laksamadi Guko
