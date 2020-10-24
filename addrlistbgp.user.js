@@ -4,7 +4,7 @@
 // @version      0.2
 // @description  Get Adress List from BGP
 // @author       Laksamadi Guko
-// @match        https://bgp.he.net/*
+// @match        https://bgp.he.net/search?*
 // @grant        none
 // @require      http://code.jquery.com/jquery-3.4.1.min.js
 // ==/UserScript==
