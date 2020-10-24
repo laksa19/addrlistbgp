@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Address List BGP
 // @namespace    https://laksa19.github.io/addrlistbgp
-// @version      0.1
+// @version      0.2
 // @description  Get Adress List from BGP
 // @author       Laksamadi Guko
-// @match        https://bgp.he.net/search?*
+// @match        https://bgp.he.net/*
 // @grant        none
 // @require      http://code.jquery.com/jquery-3.4.1.min.js
 // ==/UserScript==
