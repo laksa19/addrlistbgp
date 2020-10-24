@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         Address List BGP
 // @namespace    https://laksa19.github.io/addrlistbgp
-// @version      0.2
+// @version      0.3
 // @description  Get Adress List from BGP
 // @author       Laksamadi Guko
-// @match        https://bgp.he.net/search?*
+// @match        https://bgp.he.net/search*
+// @match        https://bgp.he.net/dns/*
 // @grant        none
 // @require      http://code.jquery.com/jquery-3.4.1.min.js
 // ==/UserScript==
@@ -30,11 +31,16 @@ margin-bottom:8px;
 <button class='btnx' id='close'>Close</button>
 <table id='tblresult'></table>
 </div>`
-                         );
+);
     $(".search").append("<a href='#' id='getscript' style='color:#000066;'>Get Address List Script</a>");
     $("#getscript").click(function(){
-        getIP();
+        if(location.href.split("/")[3] == "dns"){
+            getIPDNS();
+        }else{
+            getIP();
+        }
     })
+
 
     $("#cpscript").click(function(){
         copyTable(document.getElementById("tblresult"));
@@ -43,6 +49,22 @@ margin-bottom:8px;
         $("#result").hide()
         $("#tblresult").html("");
     })
+
+    function getIPDNS(){
+        $("#tblresult").html("");
+        $("#tblresult").append("<tr><td>/ip firewall address-list</td></tr>")
+        var gdns = $('#header').find('a')[2].innerHTML;
+        var a =  $('#ipinfo').find("a");
+        a.each(function() {
+            var ip = ($(this).html());
+            if(ip && ip.split(".").length == 4){
+                $("#tblresult").append(`<tr><td>add list="`+gdns+`" address=`+ip+`</td></tr>`);
+            }
+
+        });
+         $("#tblresult").append("<tr><td></td></tr>");
+        $("#result").show();
+    }
 
 
     function getIP(){
@@ -85,5 +107,4 @@ margin-bottom:8px;
     }
     // Your code here...
 })();
-
 
