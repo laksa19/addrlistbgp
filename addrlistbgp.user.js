@@ -3,11 +3,10 @@
 // @namespace    https://laksa19.github.io/addrlistbgp
 // @updateURL    https://raw.githubusercontent.com/laksa19/addrlistbgp/main/addrlistbgp.user.js
 // @downloadURL  https://raw.githubusercontent.com/laksa19/addrlistbgp/main/addrlistbgp.user.js
-// @version      0.7
+// @version      0.8
 // @description  Get Adress List from BGP
 // @author       Laksamadi Guko
 // @match        https://bgp.he.net/search*
-// @match        https://bgp.he.net/dns/*
 // @match        https://bgp.he.net/AS*
 // @grant        none
 // @require      http://code.jquery.com/jquery-3.4.1.min.js
@@ -35,13 +34,10 @@ margin-bottom:8px;
 <table id='tblresult'></table>
 </div>`
 );
-    $(".search").append("<a href='#' id='getscript' style='color:#000066;'>Get Address List Script</a>");
+    $("#header_search").append("<a href='#' id='getscript' style='color:#000066;'>Get Address List Script</a>");
     $("#getscript").click(function(){
-        if(location.href.split("/")[3] == "dns"){
-            getIPDNS();
-        }else{
+
             getIP();
-        }
     })
 
 
@@ -53,21 +49,6 @@ margin-bottom:8px;
         $("#tblresult").html("");
     })
 
-    function getIPDNS(){
-        $("#tblresult").html("");
-        $("#tblresult").append("<tr><td>/ip firewall address-list</td></tr>")
-        var gdns = $('#header').find('a')[2].innerHTML;
-        var a =  $('#ipinfo').find("a");
-        a.each(function() {
-            var ip = ($(this).html());
-            if(ip && ip.split(".").length == 4){
-                $("#tblresult").append(`<tr><td>add list="`+gdns+`" address=`+ip+`</td></tr>`);
-            }
-
-        });
-         $("#tblresult").append("<tr><td></td></tr>");
-        $("#result").show();
-    }
 
 
     function getIP(){
@@ -81,9 +62,9 @@ margin-bottom:8px;
             var list ="";
             var ip = ($(this).find('a').html());
             if(location.href.split("/")[3].substr(0,2) == "AS"){
-                list = $('#header').find('a')[2].innerHTML;
+                list = $('#header').find('a')[1].innerHTML.split(location.href.split("/")[3].split('#')[0])[1];
             }else{
-                list = $('#search_search').val();
+                list = $('#header').find('h1')[0].innerHTML.split('"')[1].split('"')[0];
             }
             if(ip && ip.split(".").length == 4){
                 $("#tblresult").append(`<tr><td>add list="`+list+`" address=`+ip+`</td></tr>`);
@@ -114,6 +95,6 @@ margin-bottom:8px;
         }
         document.execCommand("copy");
     }
-    // Your code here...
+
 })();
 
